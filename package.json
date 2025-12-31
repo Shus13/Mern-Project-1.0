@@ -1,0 +1,14 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "This is Mern Porject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sushit Karki",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
