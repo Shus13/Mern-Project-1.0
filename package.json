@@ -4,12 +4,13 @@
   "description": "This is Mern Porject",
   "main": "index.js",
   "scripts": {
-    "start" : "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "author": "Sushit Karki",
   "license": "ISC",
   "dependencies": {
     "express": "^5.2.1",
+    "mongoose": "^9.1.1",
     "nodemon": "^3.1.11"
   }
 }

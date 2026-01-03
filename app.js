@@ -1,4 +1,8 @@
- const app = require("express")()
+ const app = require("express")();
+ const { connectDatabase } = require("./database/database");
+
+ connectDatabase()
+
 
  app.get("/", (req,res)=>{
     // res.send("<h1>Hello, I'm Home Page</h1>")
