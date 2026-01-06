@@ -1,6 +1,7 @@
- const app = require("express")();
+ const express = require("express");
+ const app = express();
  const { connectDatabase } = require("./database/database");
-
+ app.use(express.json());
  connectDatabase()
 
 
@@ -27,6 +28,14 @@
    res.json({
       message : "I'm About Page"
    })
+ })
+
+ app.post("/login",(req,res) => {
+   console.log("Login Request Received")
+   res.json({
+      message : "Login Request Successful"
+   })
+   //  res.send("Hello, I'm Login Page")  
  })
 
  app.listen(3000,(req,res)=>{
