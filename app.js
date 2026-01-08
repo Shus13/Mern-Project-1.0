@@ -14,6 +14,13 @@
     })
  })
 
+ app.get("/services", (req, res)=> {
+   //  res.send("Hello, I'm Services Page")     
+   res.json({
+      message : "I'm Services Page"
+   })
+ } )
+
  app.get("/contact", (req, res)=> {
    //  res.send("Hello, I'm Contact Page")
 
