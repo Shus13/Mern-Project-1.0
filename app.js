@@ -5,7 +5,7 @@ const Blog = require("./model/blogModel");
 app.use(express.json());
 connectDatabase();
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   // res.send("<h1>Hello, I'm Home Page</h1>")
@@ -16,27 +16,55 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/services", (req, res) => {
-  //  res.send("Hello, I'm Services Page")
-  res.json({
-    message: "I'm Services Page",
-  });
+// Get API blogs (All Blogs)
+app.get("/blogs", async (req, res) => {
+  const blogs = await Blog.find();
+
+  if (blogs.length == 0) {
+    res.status(200).json({
+      // status: 200,
+      message: "Empty Blogs",
+    });
+  } else {
+    //  res.send("Hello, I'm Services Page")
+    res.status(404).json({
+      message: "Blogs fetched successfully",
+      // status: 404,
+      data: blogs,
+    });
+  }
 });
 
-app.get("/contact", (req, res) => {
-  //  res.send("Hello, I'm Contact Page")
+// Get API /blogs/:id (Single Blogs)
+app.get("/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  // const blog = await Blog.find({ _id: id });
 
-  res.json({
-    message: "I'm Contact Page",
-  });
-});
+  // if (blog.length == 0) {
+  //   res.status(200).json({
+  //     message: "No blogs found with this id",
+  //   });
+  // } else {
+  //   res.status(200).json({
+  //     message: "Blog fetched sucessfully",
+  //     data: blog,
+  //   });
+  // }
 
-app.get("/about", (req, res) => {
-  //  res.send("Hello, I'm About Page")
+  const blog = await Blog.findById(id)
+  if(blog){
+    res.status(200).json({
+      message: "Blog fetched sucessfully",
+      data: blog
+    })
+  }else{
+    res.status(404).json({
+      message: "No Blogs found"
+    })
+  }
 
-  res.json({
-    message: "I'm About Page",
-  });
+
+  
 });
 
 app.post("/login", (req, res) => {
@@ -50,15 +78,15 @@ app.post("/login", (req, res) => {
 //  Create Blog API
 
 app.post("/createBlog", async (req, res) => {
-   const title = req.body.title
-   const subtitle = req.body.subtitle
-   const description = req.body.description
+  const title = req.body.title;
+  const subtitle = req.body.subtitle;
+  const description = req.body.description;
 
   // Insert into Database
   await Blog.create({
     title: title,
     subtitle: subtitle,
-    description: description
+    description: description,
   });
 
   res.json({
