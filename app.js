@@ -95,6 +95,48 @@ app.post("/createBlog", async (req, res) => {
   });
 });
 
+// Update Blog API
+app.patch("/blogs/:id", async (req,res) => {
+  const id = req.params.id
+  const title = req.params.title
+  const subtitle = req.params.subtitle
+  const description = req.params.description
+
+  // to check if the blogs with id exist or not
+
+  const isBlogFound = await Blog.find({
+    id : id
+  })
+
+  if(isBlogFound.length == 0) {
+    res.json({
+      message : "No Blog"
+    })   
+  }
+
+  await Blog.findByIdAndUpdate(id,{
+    title : title,
+    subtitle : subtitle,
+    description : description
+  })
+
+  res.status(200).json({
+    message : "Blog updated successfully"
+  })
+})
+
+// Delete Blog API
+app.delete("/blogs/:id", async (req,res) => {
+  const id = req.param.id
+
+  await Blog.findByIdAndDelete(id)
+
+  res.status(200).json({
+    message : "Blog deleted successfully"
+  })
+})
+
+
 app.listen(3000, (req, res) => {
   console.log("NodeJs has started at port 3000");
 });
