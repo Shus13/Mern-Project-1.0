@@ -16,6 +16,18 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/about", (req,res) => {
+  res.status(200).json({
+    message: "This is about page"
+  })
+})
+
+app.post("/post", (req,res) => {
+  res.json({
+    message: "posted successfully"
+  })
+})
+
 // Get API blogs (All Blogs)
 app.get("/blogs", async (req, res) => {
   const blogs = await Blog.find();
